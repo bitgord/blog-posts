@@ -12,6 +12,13 @@ describe('Updating records', () => {
 	});
 
 	it('instance type using set and save', (done) => {
-		
+		joe.set('name', 'Michael');
+		joe.save()
+			.then(() => User.find({}))
+			.then((users) => {
+				assert(users.length === 1);
+				assert(users[0].name === 'Michael');
+				done();
+			});
 	});
 });
