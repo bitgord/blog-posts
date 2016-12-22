@@ -7,16 +7,12 @@ describe('Virtual types', () => {
 			name: 'Joe',
 			posts: [{ title: 'PostTitle'}]
 		});
-		const validationResult = user.validateSync();
-		const { message } = validationResult.errors.name;
-
-		assert(message === 'Name is required.');
+		
+		joe.save()
+			.then(() => User.findOne({ name: 'Joe' }))
+			.then((user) => {
+				assert(joe.postCount === 1);
+				done();
+			});
 	});
-
-	joe.save()
-		.then(() => User.findOne({ name: 'Joe' }))
-		.then((user) => {
-			assert(joe.postCount === 1);
-			done();
-		});
 });
