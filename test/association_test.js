@@ -26,5 +26,27 @@ describe('Associations', () => {
 				assert(user.blogPosts[0].title === 'JS is Great');
 				done();
 			});
-	})
+	});
+
+	it('saves a full relation tree', (done) => {
+		User.findOne({ name: 'Joe' })
+			.populate({
+				path: 'blogPosts',
+				populate: {
+					path: 'comments',
+					model: 'comment',
+					populate: {
+						path: 'user',
+						model: 'user'
+					} 
+				}
+			})
+			.then((user) => {
+				assert(user.name === 'Joe');
+				assert(user.blogPosts[0].title === 'JS is Great');
+				assert(user.blogPosts[0].comments[0].content === 'Great post');
+				assert(user.blogPosts[0].comments[0].user.name === 'Joe');
+				done();
+			});
+	});
 });
