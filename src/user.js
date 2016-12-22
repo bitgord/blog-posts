@@ -1,10 +1,11 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-const userSchema = new Schema({
-	name: String
+const UserSchema = new Schema({
+	name: String,
+	postCount: Number
 });
 
-const User = mongoose.model('user', userSchema);
+const User = mongoose.model('user', UserSchema);
 
 module.exports = User;
