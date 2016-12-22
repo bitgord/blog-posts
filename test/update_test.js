@@ -40,14 +40,14 @@ describe('Updating records', () => {
 		);			
 	});
 
-	it('a model class can update', (done) => {
+	it('a model class can find a record with an id and update it', (done) => {
 		assertName(
 			User.findByIdAndUpdate(joe._id, { 'name': 'Michael' }), 
 			done
 		);			
 	});
 
-	it('A user can have their postcount increment by 1', (done) => {
+	xit('A user can have their postcount increment by 1', (done) => {
 		User.update({ name: 'Joe' }, { $inc: { postCount: 1 } })
 			.then(() => User.findOne({ name: 'Joe' }))
 			.then((user) => {
